@@ -1,4 +1,4 @@
-
+<font size=5>
 <?php
 header("content-Type: text/html; charset=Utf-8"); 
 define ('UTF32_BIG_ENDIAN_BOM'   , chr(0x00) . chr(0x00) . chr(0xFE) . chr(0xFF));
