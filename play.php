@@ -20,9 +20,8 @@ echo("$name is over<br>$a");
 }
 else
 echo "<a href=webplayer.php>back</a><br>";
-//echo("$name is on playing<br>");
 //echo($a);
 }
-else 
+else
 echo "plase enter in right way";
 ?>
