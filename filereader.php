@@ -6,11 +6,19 @@ define ('UTF32_LITTLE_ENDIAN_BOM', chr(0xFF) . chr(0xFE) . chr(0x00) . chr(0x00)
 define ('UTF16_BIG_ENDIAN_BOM'   , chr(0xFE) . chr(0xFF));
 define ('UTF16_LITTLE_ENDIAN_BOM', chr(0xFF) . chr(0xFE));
 define ('UTF8_BOM'               , chr(0xEF) . chr(0xBB) . chr(0xBF));
+<<<<<<< HEAD
 include_once("functions");
+=======
+
+>>>>>>> origin/master
 function detect_utf_encoding($text) {
     $first2 = substr($text, 0, 2);
     $first3 = substr($text, 0, 3);
     $first4 = substr($text, 0, 3);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     if ($first3 == UTF8_BOM) return 'UTF-8';
     elseif ($first4 == UTF32_BIG_ENDIAN_BOM) return 'UTF-32BE';
     elseif ($first4 == UTF32_LITTLE_ENDIAN_BOM) return 'UTF-32LE';
@@ -54,6 +62,7 @@ else
 $path="/";
 if($_GET['dir'])
 {
+<<<<<<< HEAD
 
 $path=urldecode($_GET['dir']);
 if($path!='/')
@@ -90,5 +99,26 @@ echo gontenfile($filepath)."<br>";
 include_once("footer.php");
 //echo "<br><a href='javascript:history.back()'>返回</a><br>";
 //echo "<a href=index.php>index</a><br>";
+=======
+$path=urldecode($_GET['dir']);
+//$files=scandir($path);
+}
+$files=scandir("$path");
+foreach($files as $file)
+{
+if(! is_dir("$path/$file") )
+{
+$filepath="filepath=" . urlencode("$path/$file");
+echo "<a href=filereader.php?$filepath>$file</a><br>";
+}
+else
+{
+$dir="dir=" ."$path/$file";
+echo "<a href=filereader.php?$dir>$file</a><br>";
+}
+}
+echo "<br><a href='javascript:history.back()'>返回</a><br>";
+echo "<a href=index.php>index</a><br>";
+>>>>>>> origin/master
 }
 ?>
