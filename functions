@@ -1,0 +1,12 @@
+<?php
+function gontenfile($filestr){
+
+$gonten= explode('.',$filestr); //用点号分隔文件名到数组
+
+$gonten = array_reverse($gonten); //把上面数组倒序
+
+return $gonten[0]; //返回倒序数组的第一个值
+
+}
+
+?>

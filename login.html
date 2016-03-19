@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>北京师范大学 网关</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <script>
+        function logout() {
+            window.location.href = "http://172.16.202.201/cgi-bin/do_logout?action=logout";
+        }
+		function login() {
+			document.getElementById("loginAction").name="action";
+			document.getElementById("form").action="http://172.16.202.201/cgi-bin/do_login";
+			return true;
+		}
+		function force() {
+			document.getElementById("loginAction").name="x";
+			document.getElementById("form").action="http://172.16.202.201/cgi-bin/force_logout";
+			return true;
+		}
+
+    </script>
+	<div class="container">
+		<h1>北京师范大学 网关</h1>
+		（转自许宏旭师兄）<br><br>
+		<form class="form" id="form" action="" method="post">
+			<div class="form-group">
+				<label for="username">用户名</label>
+				<input class="form-control" id="username" type="text" name="username" value="">
+			</div>
+			<div class="form-group">
+				<label for="password">密码</label>
+				<input class="form-control" id="password" type="password" name="password" value="">
+			</div>
+			<input id="loginAction" type="hidden" name="action" value="login">
+			<input type="hidden" name="is_pad" value="1">
+			<input type="hidden" name="drop" value="0">
+			<input type="hidden" name="type" value="1">
+			<input type="hidden" name="n" value="1">
+			<input class="btn btn-primary" type="submit" value="登录" onclick="login()">
+			<input class="btn btn-warning" type="button" value="注销" onclick="logout()">
+			<input class="btn btn-danger" type="submit" value="强制离线" onclick="force()">
+		</form>
+	</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js">
+    </script>
+
+</body>
+
+</html>

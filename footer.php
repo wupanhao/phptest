@@ -1,0 +1,5 @@
+<?php
+echo "<br><a href='javascript:history.back()'>返回</a><br>";
+echo "<a href=index.php>index</a><br>";
+
+?>
