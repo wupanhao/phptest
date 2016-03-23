@@ -1,29 +1,52 @@
-<html>
-<head><title>WebPlayer</title></head>
-<font size=5>
-<br>
+<?php include_once("header.php");?>
+<body>
 <?php
-echo "<h4>";
-echo("welcome to use the webpayer<br>");
-echo("version 2.0<br>author 东皇昊一<br>");
-echo "</h4>";
-echo "歌曲目录:<br><hr width=20% align=left>";
-$filenames=scandir('/home/kugou/');
-foreach($filenames as $file)
+
+if($_GET['musicpath'])
 {
-$name=urlencode($file);
-if($name!='.' and $name!='..')
-echo("<a href=playlist.php?name=$name>$file</a><br>");
+$music=urldecode($_GET['musicpath']);
+shell_exec("sudo killall omxplayer.bin");
+$a=`omxplayer "$music"`;
+
+echo "$music";
+//$music=$_GET['musicpath'];
+//echo"<audio src=$music>";
+echo basename($music)." is on playing~<br>";
+//echo"<EMBED src=\"$music\" width=320 height=40 type=audio/x-pn-realaudio-plugin controls=ControlPanel loop=true autostart=true volume=100 Initfn=load-types mime-types=mime.types>";
+//echo"您的浏览器不支持 audio 标签。";
+//echo"<audio src=\"$music\" preload=true>您的浏览器不支持 audio 标签</audio>";
+//////echo"<audio controls=\"controls\"  autoplay=\"autoplay\"><source src=\"$music\" type=\"audio/mp3\"></audio>";
+//echo"<embed type=audio/mp3 src=$music autostart=true loop=false></embed>";
 }
-echo "<br>";
-echo "<hr width=20% align=left>";
-echo "不喜欢？上传试试<a href=upload.php>上传</a><br>";
-echo "<a href=index.php>首页</a><br>";
-//$filenames=scandir('/mnt/kugou/');
-//foreach($filenames as $file)
-//{
-//$name=urlencode($file);
-//echo("<a href=playlist.php?name=$name>$file</a><br>");
-//}
+else
+{
+include_once("functions");
+$defaultpath="/media/pi/HAO/kugou";
+if($_GET['dirpath'])
+$defaultpath=urldecode($_GET['dirpath']);
+$dirs=scandir($defaultpath);
+echo"目录:<br>";
+foreach($dirs as $dir)
+        {
+$rawpath="$defaultpath"."/".$dir;
+$codepath=urlencode($rawpath);
+if(is_dir($rawpath))
+echo"<a href='webplayer.php?dirpath=$codepath' data-theme='e' data-role='button'>$dir</a><br>";
+        }
+echo"<hr>文件:<br>";
+foreach($dirs as $dir)
+        {
+$rawpath="$defaultpath"."/".$dir;
+$codepath=urlencode($rawpath);
+if(!is_dir($rawpath))
+{
+if(gontenfile($rawpath)=='mp3')
+echo"<a href=\"webplayer.php?musicpath=$codepath\">$dir</a><br>";
+}
+        }
+
+
+}
+//include_once("footer.php");
 ?>
-</font>
+</body>

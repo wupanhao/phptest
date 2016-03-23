@@ -1,5 +1,7 @@
-
+<?php include_once("header.php");?>
+<body>
 <?php
+
 if($_GET['musicpath'])
 {
 $music=urldecode($_GET['musicpath']);
@@ -25,7 +27,7 @@ foreach($dirs as $dir)
 $rawpath="$defaultpath"."/".$dir;
 $codepath=urlencode($rawpath);
 if(is_dir($rawpath))
-echo"<a href='onlineplayer.php?dirpath=$codepath'>$dir</a><br>";
+echo"<a href='onlineplayer.php?dirpath=$codepath' data-theme='e' data-role='button'>$dir</a><br>";
         }
 echo"<hr>文件:<br>";
 foreach($dirs as $dir)
@@ -41,4 +43,6 @@ echo"<a href=\"onlineplayer.php?musicpath=$codepath\">$dir</a><br>";
 
 
 }
+//include_once("footer.php");
 ?>
+</body>
