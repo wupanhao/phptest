@@ -8,5 +8,31 @@ $gonten = array_reverse($gonten); //把上面数组倒序
 return $gonten[0]; //返回倒序数组的第一个值
 
 }
+function redirect($page='index.php'){
+$url='http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+$url=rtrim($url,'/\\');
+$url.='/'.$page;
+header("Location:$url");
+echo"正在跳转至$page。。。";
+exit();
+}
+function check_login($dbc,$name='',$pass=''){
+$n=mysqli_real_escape_string($dbc,$name);
+//$p=mysqli_real_escape_string($mysql,$_POST['pass']);
+$q="SELECT pass FROM users WHERE name='$n'";
+$r=mysqli_query($dbc,$q);
+if($r){
+$row=mysqli_fetch_array($r);
+//echo $row['0'];
+if($row['0']==$pass){
+return true;
+	}
+else {
+return false;
+	}
+}
+else
+echo "error!";
 
+}
 ?>

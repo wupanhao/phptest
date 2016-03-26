@@ -1,20 +1,29 @@
 <?php
-if($_SERVER['REQUEST_METHOD']=='POST'){
-if($_POST['login']){
+if(isset($_POST['login']) && $_SERVER['REQUEST_METHOD']=='POST'){
+if( $_POST['login'] && !empty($_POST['name'])){
 include_once("includes/sql_connect.php");
 $n=mysqli_real_escape_string($mysql,$_POST['name']);
 $p=$_POST['pass'];
 //$p=mysqli_real_escape_string($mysql,$_POST['pass']);
-$q="SELECT '$p' FROM users WHERE name='$n'";
+$q="SELECT pass FROM users WHERE name='$n'";
 $r=mysqli_query($mysql,$q);
 if($r){
 $row=mysqli_fetch_array($r);
-if($row['0']==$p)
-echo "登陆成功";
-else
-echo "error,请检查账户和密码";
+if($row['0']==$p){
+//session_start();
+//$_SESSION['username']=$n;
+//$_SESSION['pass']=$p;
+//$_SESSION['agent']=md5($_SERVER['HTTP_USER_AGENT']);
+//var_dump($row);
+setcookie('username',$n);
+setcookie('pass',$p);
+echo "登陆成功,正在转向首页";
+echo '<head> <meta http-equiv="Refresh" content="1;url=http://172.16.122.8"> </head>';
+}
 		}//end $r
 	}//end login
+else
+echo "error,请检查账户和密码";
 }//end post
 
 else{

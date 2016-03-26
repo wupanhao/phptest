@@ -7,8 +7,15 @@ $e=mysqli_real_escape_string($mysql,$_POST['email']);
 $t=mysqli_real_escape_string($mysql,$_POST['tel']);
 if(empty($n) or empty($p) or empty($e) or empty($t))
 echo"要填完哦亲~<br>";
+
+//$q='INSERT INTO count (num) VALUES (?)';
+//$stmp=mysqli_prepare($mysql,$q);
+//mysqli_bind_param($stmp,'i',$n);
+//mysqli_stmp_execute($stmp);
+//if(mysqli_stmp_affected_rows($stmp)==1);
 else{
 $q="SELECT name FROM users WHERE name='$n'";
+mysqli_set_charset($mysql,"utf8");
 $r=@mysqli_query($mysql,$q);
 $num=mysqli_num_rows($r);
 if($num>0)
@@ -18,10 +25,14 @@ $q="INSERT INTO users (name,pass,email,tel,reg_date) VALUES ('$n','$p','$e','$t'
 $status=mysqli_query($mysql,$q);
 if(!$status)
 echo"error!";
-else
-echo"Thank you for your registration<br>";
-		}
-	}
+else{
+echo 'Thank you for your registration<br>
+Then you can use this account to login<br>';
+include_once("login.php");
+			}  //third
+		}// second else
+	} //end first else
+mysqli_close($mysql);
 }  //end post;
 
 else{

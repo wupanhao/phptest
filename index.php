@@ -1,49 +1,31 @@
-<html>
-<head><title>index</title></head>
-
-<link rel="shortcut icon" href="/image/bitbug_favicon.ico" />
-<body>
 <?php //<img src="/image/imagenvshengjie.jpg" />
 ?>
-<font size=6>
-<br>
 <?php
-$path="/home/pi/phptest/";
-//<<<<<<< HEAD
-function gontenfile($filestr){
-
-$gonten= explode('.',$filestr); //用点号分隔文件名到数组
-
-$gonten = array_reverse($gonten); //把上面数组倒序
-
-return $gonten[0]; //返回倒序数组的第一个值
-
-}
-//=======
-//>>>>>>> origin/master
-//$pp='https://www.baidu.com';
-//	echo("<a href=$pp> baidu</a><br>");
-//	echo('<a href=$> index.php</a>');
-	echo "欢迎使用<br>Author:东皇昊一<br>";
+include_once("includes/sql_connect.php");
+include_once("functions");
+//session_start();
+//if(isset($_SESSION['username']) && check_login($mysql,$_SESSION['username'],$_SESSION['pass'])){
+if(isset($_COOKIE['username']) && check_login($mysql,$_COOKIE['username'],$_COOKIE['pass'])){
+	$path="/home/pi/phptest/";
+	$page_title="Home Page";
+	include_once("includes/header.html");
+	echo "欢迎";
+	echo $_COOKIE['username'];
+	echo "<a href=logout.php >注销</a><br>";
 	$arrar=scandir("$path");
-	//$arr=explode(" ",$arrar);
-	//foreach($arrar as $filenamer)
-	//echo "<p align=center>";
 	foreach($arrar as $filename)
 	//{echo($filename);}
 	//var_dump($arrar);
-//<<<<<<< HEAD
-	if(gontenfile($filename)=='html' || gontenfile($filename)=='php' )
-{
+	if(gontenfile($filename)=='html' || gontenfile($filename)=='php' ){
 	//basename($filename)
 	echo("<a href=$filename>$filename</a><br>");
-//	echo basename($filename);
+	}
+
 }
-//=======
-//	if($filename[0]!='.' )
-//	echo("<a href=$filename>$filename</a><br>");
-//>>>>>>> origin/master
+else{
+$page_title="Login";
+include_once("includes/header.html");
+echo"游客，请先登录或<a href=register.php>注册</a>";
+include_once("login.php");
+}
 ?>
-</font>
-</body>
-</html>
